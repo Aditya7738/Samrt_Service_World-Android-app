@@ -3,4 +3,18 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="t_c">Accept terms and conditions</string>
+    <string name="tab2">Service provider</string>
+    <string name="tab1">Customer</string>
+    <string name="cpass">Confirm your password</string>
+    <string name="location">Enter your location</string>
+    <string name="phone_number">Enter your phone number</string>
+    <string name="email">Enter your email</string>
+    <string name="name">Enter your name</string>
+    <string name="password">Enter your password</string>
+    <string name="sign_up">Sign up</string>
+    <string name="already">Already have account?</string>
+    <string name="login">Login</string>
+    <string name="noaccount">Not created account yet?</string>
+    <string name="register">Register</string>
+    <string name="cpassword">Confirm your password</string>
 </resources>

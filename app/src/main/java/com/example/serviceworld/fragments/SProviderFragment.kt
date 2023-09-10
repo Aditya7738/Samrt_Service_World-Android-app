@@ -1,6 +1,5 @@
-package com.example.serviceworld.Fragments
+package com.example.serviceworld.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,34 +15,29 @@ import com.example.serviceworld.RegisterActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 
-class UserFragment(registerActivity: RegisterActivity) : Fragment() {
+class SProviderFragment(registerActivity: RegisterActivity) : Fragment() {
 
     var context = registerActivity
     lateinit var firebaseAuth: FirebaseAuth
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_user, container, false)
+        var view = inflater.inflate(R.layout.fragment_s_provider, container, false)
 
-        val nameTxt = view.findViewById<TextInputEditText>(R.id.nameTxt)
-        val emailTxt = view.findViewById<TextInputEditText>(R.id.emailTxt)
-        val phoneNoTxt = view.findViewById<TextInputEditText>(R.id.phonenoTxt)
-        val locationTxt = view.findViewById<TextInputEditText>(R.id.locationTxt)
-        val passTxt = view.findViewById<TextInputEditText>(R.id.passTxt)
-        val cpassTxt = view.findViewById<TextInputEditText>(R.id.cpassTxt)
-        val signUp: Button = view.findViewById<Button>(R.id.signupBtn)
-        val loginTxt: TextView = view.findViewById(R.id.loginTxt)
+        val nameTxt = view.findViewById<TextInputEditText>(R.id.snameTxt)
+        val emailTxt = view.findViewById<TextInputEditText>(R.id.semailTxt)
+        val phoneNoTxt = view.findViewById<TextInputEditText>(R.id.sphonenoTxt)
+        val locationTxt = view.findViewById<TextInputEditText>(R.id.slocationTxt)
+        val passTxt = view.findViewById<TextInputEditText>(R.id.spassTxt)
+        val cpassTxt = view.findViewById<TextInputEditText>(R.id.scpassTxt)
+        val signUp: Button = view.findViewById<Button>(R.id.ssignupBtn)
+        val loginTxt: TextView = view.findViewById(R.id.sloginTxt)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        
+
         signUp.setOnClickListener(){
             val name = nameTxt.text.toString()
             val email = emailTxt.text.toString()
@@ -60,6 +54,11 @@ class UserFragment(registerActivity: RegisterActivity) : Fragment() {
             if(email.isEmpty()){
                 emailTxt.setError("Email field is empty")
                 Toast.makeText(context, "Email field is empty", Toast.LENGTH_LONG).show();
+            }
+
+            if(pass.length < 6){
+                passTxt.setError("Password is less than 6 characters")
+                Toast.makeText(context, "Password is less than 6 characters", Toast.LENGTH_LONG).show();
             }
 
             if(pass.isEmpty()){
@@ -82,7 +81,7 @@ class UserFragment(registerActivity: RegisterActivity) : Fragment() {
                 Toast.makeText(context, "Location field is empty", Toast.LENGTH_LONG).show();
             }
 
-            if(name.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty() &&
+            if(name.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty() && pass.length >= 6 &&
                 cpass.isNotEmpty() && phone.isNotEmpty() && location.isNotEmpty()){
                 if(pass != cpass){
                     Toast.makeText(context, "Password and confirm password are not same", Toast.LENGTH_LONG).show();
@@ -107,10 +106,9 @@ class UserFragment(registerActivity: RegisterActivity) : Fragment() {
         loginTxt.setOnClickListener(){
             navigateToLogin()
         }
-        
+
         return view
     }
-
 
     fun navigateToLogin(){
         val intent = Intent(context, LoginActivity::class.java)

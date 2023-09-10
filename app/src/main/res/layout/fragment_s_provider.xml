@@ -3,16 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.SProviderFragment">
+    tools:context=".fragments.SProviderFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:gravity="bottom"
         android:orientation="vertical"
-        tools:context=".RegisterActivity"
         tools:ignore="UselessParent">
 
 
@@ -27,11 +25,10 @@
             android:id="@+id/nameBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nameTxt"
+                android:id="@+id/snameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:hint="Enter your name"
+                android:hint="@string/name"
                 android:inputType="text"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -47,10 +44,10 @@
             style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox.Dense">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailTxt"
+                android:id="@+id/semailTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter your email"
+                android:hint="@string/email"
                 android:inputType="text"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -65,11 +62,11 @@
             style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox.Dense">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/phonenoTxt"
+                android:id="@+id/sphonenoTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:hint="Enter your phone number"
+                android:hint="@string/phone_number"
                 android:inputType="phone"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -83,10 +80,10 @@
             android:paddingHorizontal="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/locationTxt"
+                android:id="@+id/slocationTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter your location"
+                android:hint="@string/location"
                 android:inputType="text"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -101,10 +98,10 @@
             style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox.Dense">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passTxt"
+                android:id="@+id/spassTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter your password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textSize="18sp"
 
@@ -122,10 +119,10 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/confirmpassTxt"
+                android:id="@+id/scpassTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Confirm your password"
+                android:hint="@string/cpass"
                 android:inputType="textPassword"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -135,17 +132,17 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:backgroundTint="@color/orange"
-            android:text="Accept terms and conditions" />
+            android:text="@string/t_c" />
 
         <Button
-            android:id="@+id/signupBtn"
+            android:id="@+id/ssignupBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
-            android:onClick="signUp"
+
             android:backgroundTint="@color/orange"
-            android:text="Sign up" />
+            android:text="@string/sign_up" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -158,15 +155,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:text="Already have account?" />
+                android:text="@string/already" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/orange"
                 android:textStyle="bold"
-                android:text="Login"
-                android:id="@+id/loginTxt"/>
+                android:text="@string/login"
+                android:id="@+id/sloginTxt"/>
 
         </LinearLayout>
 

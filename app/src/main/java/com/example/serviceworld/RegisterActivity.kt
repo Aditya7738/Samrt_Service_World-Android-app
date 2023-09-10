@@ -2,14 +2,12 @@ package com.example.serviceworld
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.serviceworld.Fragments.SProviderFragment
-import com.example.serviceworld.Fragments.UserFragment
+import com.example.serviceworld.fragments.SProviderFragment
+import com.example.serviceworld.fragments.UserFragment
 import com.example.serviceworld.databinding.ActivityRegisterBinding
-import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var binding: ActivityRegisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +19,7 @@ class RegisterActivity : AppCompatActivity() {
         val tabLayout = binding.registerTabs
         val fragmentAdapter = FragmentAdapter(supportFragmentManager)
 
-        fragmentAdapter.addFragment(UserFragment(this), "User")
+        fragmentAdapter.addFragment(UserFragment(this), "Customer")
         fragmentAdapter.addFragment(SProviderFragment(this), "Service provider")
 
         viewPager.adapter = fragmentAdapter

@@ -6,76 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
     android:orientation="vertical"
-    android:gravity="bottom">
-
-    <com.google.android.material.textfield.TextInputLayout
+  >
+    <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:paddingHorizontal="10dp"
-        app:boxStrokeColor="@color/orange"
-        app:hintTextColor="@color/orange"
-        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox.Dense">
+        android:id="@+id/loginTabs"
+        app:tabIndicatorColor="@color/white"
+        app:tabTextColor="@color/white"
+        android:backgroundTint="@color/orange">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/lemailTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter your email"
-            android:inputType="text"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:paddingHorizontal="10dp"
-        app:boxStrokeColor="@color/orange"
-        app:hintTextColor="@color/orange">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/lpassTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter your password"
-            android:inputType="textPassword"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="10dp"
-        android:onClick="signUp"
-        android:backgroundTint="@color/orange"
-        android:text="Login" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <TextView
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="Not created account yet?" />
+            android:text="@string/tab1" />
 
-        <TextView
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/orange"
-            android:textStyle="bold"
-            android:text="Register"
-            android:id="@+id/registerTxt"/>
+            android:text="@string/tab2" />
 
-    </LinearLayout>
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 </LinearLayout>
