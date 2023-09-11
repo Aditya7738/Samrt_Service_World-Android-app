@@ -26,6 +26,8 @@ class LoginActivity : AppCompatActivity() {
         viewPager.adapter = fragmentAdapter
         tabLayout.setupWithViewPager(viewPager)
 
+        //var tab: TabLayout.Tab = tabLayout.getTabAt()
+
 
 
 

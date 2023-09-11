@@ -6,6 +6,7 @@
     tools:context=".fragments.CustomerLoginFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,8 +17,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingHorizontal="10dp"
+            android:layout_margin="@dimen/_8sdp"
+            android:paddingHorizontal="@dimen/_8sdp"
             app:boxStrokeColor="@color/orange"
             app:hintTextColor="@color/orange"
             style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox.Dense">
@@ -28,15 +29,15 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
                 android:inputType="text"
-                android:textSize="18sp" />
+                android:textSize="@dimen/_14ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:paddingHorizontal="10dp"
+            android:layout_margin="@dimen/_8sdp"
+            android:paddingHorizontal="@dimen/_8sdp"
             app:boxStrokeColor="@color/orange"
             app:hintTextColor="@color/orange">
 
@@ -46,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:textSize="18sp" />
+                android:textSize="@dimen/_14ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -54,24 +55,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
-
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:backgroundTint="@color/orange"
             android:text="@string/login" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-
+            android:layout_marginBottom="@dimen/_20sdp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="@dimen/_8sdp"
                 android:text="@string/noaccount" />
 
             <TextView

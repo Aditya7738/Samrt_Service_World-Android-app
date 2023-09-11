@@ -15,11 +15,15 @@ import com.example.serviceworld.R
 import com.example.serviceworld.RegisterActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class UserFragment(registerActivity: RegisterActivity) : Fragment() {
 
+
     var context = registerActivity
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +42,7 @@ class UserFragment(registerActivity: RegisterActivity) : Fragment() {
         val loginTxt: TextView = view.findViewById(R.id.loginTxt)
 
         firebaseAuth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
         
         signUp.setOnClickListener{
             val name = nameTxt.text.toString()
@@ -87,11 +92,28 @@ class UserFragment(registerActivity: RegisterActivity) : Fragment() {
                     Toast.makeText(context, "Password and confirm password are not same", Toast.LENGTH_LONG).show()
                 }
 
+
                 firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener{
                     if(it.isSuccessful){
                         val firebaseUser = firebaseAuth.currentUser
                         firebaseUser?.sendEmailVerification()?.addOnSuccessListener {
                             Toast.makeText(context, "Verification email have sent to you", Toast.LENGTH_LONG).show()
+                            val userData: HashMap<String, Any> = hashMapOf(
+                                "name" to name,
+                                "email" to email,
+                                "phone" to phone,
+                                "location" to location
+                            )
+
+                            val uid = firebaseUser.uid
+
+
+                            db.collection("users")
+                                .document("customer").collection("profile_data").document(uid)
+                                .set(userData).addOnSuccessListener{
+                                    Toast.makeText(context, "Customer's data have stored successfully", Toast.LENGTH_LONG).show()
+                                }
+
                             navigateToLogin()
                         }?.addOnFailureListener{
                             Toast.makeText(context, "Fail to send verification email", Toast.LENGTH_LONG).show()
