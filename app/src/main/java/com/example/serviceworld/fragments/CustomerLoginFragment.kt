@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.serviceworld.BottomNavActivity
 import com.example.serviceworld.LoginActivity
 import com.example.serviceworld.R
 import com.example.serviceworld.RegisterActivity
@@ -50,6 +51,8 @@ class CustomerLoginFragment(loginActivity: LoginActivity) : Fragment() {
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener{
                     if(it.isSuccessful){
                         Toast.makeText(context, "Login successfully", Toast.LENGTH_LONG).show()
+                        val intent = Intent(context, BottomNavActivity ::class.java)
+                        startActivity(intent)
 
                     }else{
                         Toast.makeText(context, "Login failed", Toast.LENGTH_LONG).show()

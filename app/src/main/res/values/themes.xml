@@ -2,8 +2,12 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ServiceWorld" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorAccent">@color/orange</item>
         <item name="colorPrimaryVariant">@color/orange</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
