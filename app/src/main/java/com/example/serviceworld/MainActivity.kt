@@ -13,22 +13,24 @@ import android.view.WindowManager
 
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.example.serviceworld.databinding.ActivityMainBinding
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
-
+    private lateinit var mainBinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mainBinding.root)
 
         val linearLayout = findViewById<LinearLayout>(R.id.linearL1)
-        val name: TextView = findViewById<TextView>(R.id.appname)
 
         val slideFromRight = Slide()
         slideFromRight.slideEdge = Gravity.END
         TransitionManager.beginDelayedTransition(linearLayout, slideFromRight)
-        name.visibility = View.VISIBLE
+        mainBinding.appname1.visibility = View.VISIBLE
+        mainBinding.appname2.visibility = View.VISIBLE
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,

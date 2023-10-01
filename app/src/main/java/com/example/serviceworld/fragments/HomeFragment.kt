@@ -10,6 +10,7 @@ import android.widget.GridView
 import com.example.serviceworld.BottomNavActivity
 import com.example.serviceworld.R
 import com.example.serviceworld.adapters.GridViewAdapter
+import com.example.serviceworld.databinding.FragmentHomeBinding
 import com.example.serviceworld.model.ServiceModel
 
 
@@ -17,25 +18,26 @@ class HomeFragment(bottomNavActivity: BottomNavActivity) : Fragment(), AdapterVi
 
     var context = bottomNavActivity
 
+    lateinit var binding: FragmentHomeBinding
+
     private var serviceList: ArrayList<ServiceModel>? = null
-    private var gridView: GridView? = null
+
     private var gridAdapter: GridViewAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        gridView = view.findViewById(R.id.serviceList)
         serviceList = ArrayList()
         serviceList = setDataList()
 
         gridAdapter = GridViewAdapter(context, serviceList!!)
-        gridView?.adapter = gridAdapter
+        binding.serviceListGV.adapter = gridAdapter
 
-        gridView?.onItemClickListener = this
-        return view
+        binding.serviceListGV.onItemClickListener = this
+        return binding.root
     }
 
     private fun setDataList(): ArrayList<ServiceModel>{

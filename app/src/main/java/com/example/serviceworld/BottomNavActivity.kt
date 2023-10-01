@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.serviceworld.databinding.ActivityBottomNavBinding
 import com.example.serviceworld.fragments.FavouriteFragment
+import com.example.serviceworld.fragments.FragmentContainerView
 import com.example.serviceworld.fragments.HomeFragment
 import com.example.serviceworld.fragments.NotificationFragment
 import com.example.serviceworld.fragments.ProfileFragment
@@ -14,6 +15,7 @@ import com.example.serviceworld.fragments.ProfileFragment
 class BottomNavActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityBottomNavBinding
+    lateinit var selectedAccount: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBottomNavBinding.inflate(layoutInflater)
@@ -21,10 +23,13 @@ class BottomNavActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+        selectedAccount = intent.getStringExtra("AccountType").toString()
+
         val homeFragment = HomeFragment(this)
         val favouriteFragment = FavouriteFragment(this)
         val notificationFragment = NotificationFragment(this)
-        val profileFragment = ProfileFragment(this)
+        //val profileFragment = ProfileFragment(selectedAccount)
+        val profileFragmentContainer = FragmentContainerView()
 
         binding.bottomNav.itemIconTintList = null
 
@@ -35,7 +40,7 @@ class BottomNavActivity : AppCompatActivity() {
                 R.id.home_icon -> replaceFragment(homeFragment)
                 R.id.fav_icon -> replaceFragment(favouriteFragment)
                 R.id.notify_icon -> replaceFragment(notificationFragment)
-                R.id.profile_icon -> replaceFragment(profileFragment)
+                R.id.profile_icon -> replaceFragment(profileFragmentContainer)
 
                 else -> {
 
