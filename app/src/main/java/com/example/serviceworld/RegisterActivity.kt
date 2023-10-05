@@ -97,6 +97,12 @@ class RegisterActivity : AppCompatActivity() {
                     ).show()
                 }
 
+                val userData: HashMap<String, String> = hashMapOf(
+                    "name" to name,
+                    "email" to email,
+                    "phone" to phone,
+                    "location" to location
+                )
 
                 firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -108,12 +114,7 @@ class RegisterActivity : AppCompatActivity() {
                                     "Verification email have sent to you",
                                     Toast.LENGTH_LONG
                                 ).show()
-                                val userData: HashMap<String, String> = hashMapOf(
-                                    "name" to name,
-                                    "email" to email,
-                                    "phone" to phone,
-                                    "location" to location
-                                )
+
 
                                 val uid = firebaseUser.uid
 

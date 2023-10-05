@@ -76,4 +76,7 @@
     <string name="update_profile">Update profile</string>
     <string name="appname_part1">Smart</string>
     <string name="appname_part2">Service World</string>
+    <string name="save_changes_btn">Save changes</string>
+    <string name="upload_photo_btn">Upload photo</string>
+    <string name="profile_image_description">Profile image</string>
 </resources>

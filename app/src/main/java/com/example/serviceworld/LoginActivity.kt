@@ -7,8 +7,6 @@ import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.example.serviceworld.fragments.CustomerLoginFragment
-import com.example.serviceworld.fragments.ProviderLoginFragment
 import com.example.serviceworld.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -60,13 +58,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             if (email.isNotEmpty() && pass.isNotEmpty() && selectedAccount.isNotEmpty()) {
-                val firebaseUser = firebaseAuth.currentUser
-                var uid: String = ""
-                var usersEmail: String? = "abc@gmail.com"
 
-                if (firebaseUser != null){
-                    uid = firebaseUser.uid
-                }
 
                 if(selectedAccount == "Customer"){
                     Log.d("CUSTOMER", "STEP1")
@@ -91,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
 
                                     } else {
                                         Log.d("SELECTED", "STEP2")
-                                        Toast.makeText(this, "Either email or password is wrong", Toast.LENGTH_LONG).show()
+                                        Toast.makeText(this, "password is wrong", Toast.LENGTH_LONG).show()
                                     }
                                 }
                             } else {
@@ -131,7 +123,7 @@ class LoginActivity : AppCompatActivity() {
 
                                     } else {
                                         Log.d("SELECTED", "STEP2")
-                                        Toast.makeText(this, "Either email or password is wrong", Toast.LENGTH_LONG).show()
+                                        Toast.makeText(this, "password is wrong", Toast.LENGTH_LONG).show()
                                     }
                                 }
                             }else{
