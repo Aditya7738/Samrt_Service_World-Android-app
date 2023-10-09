@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ServiceWorld"
 include ':app'
+include ':serviceworldadminapp'

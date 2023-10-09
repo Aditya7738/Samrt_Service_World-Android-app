@@ -3,6 +3,8 @@ package com.example.serviceworld
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.serviceworld.databinding.ActivityRegisterBinding
@@ -17,24 +19,51 @@ class RegisterActivity : AppCompatActivity() {
 
     var selectedAccount: String = ""
 
+    var selectedService: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.servicesddl.visibility = View.INVISIBLE
+
         val accountTypes = resources.getStringArray(R.array.accounts)
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, accountTypes)
+
+        val services = resources.getStringArray(R.array.services)
+        val serviceAdapter = ArrayAdapter(this, R.layout.dropdown_item, services)
+
+        binding.services.setAdapter(serviceAdapter)
 
         binding.accountType.setAdapter(arrayAdapter)
 
         binding.accountType.setOnItemClickListener { adapterView, view, position, id ->
             selectedAccount = adapterView.getItemAtPosition(position).toString()
+            if (selectedAccount == "Service Provider") {
+                binding.servicesddl.visibility = View.VISIBLE
+                binding.services.visibility = View.VISIBLE
+            }else{
+                binding.servicesddl.visibility = View.INVISIBLE
+                binding.services.visibility = View.INVISIBLE
+            }
         }
+
+        binding.services.setOnItemClickListener { adapterView, view, position, id ->
+            selectedService = adapterView.getItemAtPosition(position).toString()
+        }
+
+        Log.d("REGISTER", selectedAccount)
+
+
+
+
 
         firebaseAuth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
         binding.signupBtn.setOnClickListener {
+            Log.d("AFTERCLICK", selectedAccount)
             val name = binding.nameTxt.text.toString()
             val email = binding.emailTxt.text.toString()
             val pass = binding.passTxt.text.toString()
@@ -42,9 +71,17 @@ class RegisterActivity : AppCompatActivity() {
             val phone = binding.phonenoTxt.text.toString()
             val location = binding.locationTxt.text.toString()
 
-            if(selectedAccount.isEmpty()){
+            if (selectedAccount.isEmpty()) {
                 binding.accountType.error = "Account type is not selected"
                 Toast.makeText(this, "You have not selected account type", Toast.LENGTH_LONG).show()
+            }
+
+            if (selectedAccount == "Service Provider") {
+                if (selectedService.isEmpty()) {
+                    binding.services.error = "Service is not selected"
+                    Toast.makeText(this, "You don't have selected services", Toast.LENGTH_LONG)
+                        .show()
+                }
             }
 
             if (name.isEmpty()) {
@@ -57,15 +94,19 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Email field is empty", Toast.LENGTH_LONG).show()
             }
 
-            if (pass.length < 6) {
-                binding.passTxt.error = "Password is less than 6 characters"
-                Toast.makeText(this, "Password is less than 6 characters", Toast.LENGTH_LONG).show()
-            }
+//            if (pass.length < 6) {
+//                binding.passTxt.error = "Password is less than 6 characters"
+//                Toast.makeText(this, "Password is less than 6 characters", Toast.LENGTH_LONG).show()
+//            }
 
             if (pass.isEmpty()) {
                 binding.passTxt.error = "Password field is empty"
                 Toast.makeText(this, "Password field is empty", Toast.LENGTH_LONG).show()
+            } else if (pass.length < 6) {
+                binding.passTxt.error = "Password is less than 6 characters"
+                Toast.makeText(this, "Password is less than 6 characters", Toast.LENGTH_LONG).show()
             }
+
             if (cpass.isEmpty()) {
                 binding.cpassTxt.error = "Confirm password field is empty"
                 Toast.makeText(this, "Confirm password field is empty", Toast.LENGTH_LONG).show()
@@ -86,23 +127,35 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Location field is empty", Toast.LENGTH_LONG).show()
             }
 
-            if (name.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty() && pass.length >= 6 &&
-                cpass.isNotEmpty() && phone.isNotEmpty() && location.isNotEmpty() && phone.length == 10
-            ) {
-                if (pass != cpass) {
-                    Toast.makeText(
-                        this,
-                        "Password and confirm password are not same",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+            if (pass != cpass) {
+                Toast.makeText(this, "Password and confirm password are not same", Toast.LENGTH_LONG).show()
+            }
 
-                val userData: HashMap<String, String> = hashMapOf(
-                    "name" to name,
-                    "email" to email,
-                    "phone" to phone,
-                    "location" to location
-                )
+            if (name.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty() && pass.length >= 6 &&
+                cpass.isNotEmpty() && phone.isNotEmpty() && location.isNotEmpty() && phone.length == 10 && pass == cpass
+            ) {
+
+                val userData: HashMap<String, String>
+
+                if (selectedAccount == "Service Provider") {
+                    userData = hashMapOf(
+                        "name" to name,
+                        "email" to email,
+                        "phone" to phone,
+                        "location" to location,
+                        "serviceName" to selectedService,
+                        "isAvailable" to "Yes"
+
+                    )
+                } else {
+
+                    userData = hashMapOf(
+                        "name" to name,
+                        "email" to email,
+                        "phone" to phone,
+                        "location" to location
+                    )
+                }
 
                 firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -118,7 +171,7 @@ class RegisterActivity : AppCompatActivity() {
 
                                 val uid = firebaseUser.uid
 
-                                if(selectedAccount == "Customer") {
+                                if (selectedAccount == "Customer") {
 
 
                                     db.collection("users")
@@ -132,7 +185,7 @@ class RegisterActivity : AppCompatActivity() {
                                                 Toast.LENGTH_LONG
                                             ).show()
                                         }
-                                }else{
+                                } else {
 
                                     db.collection("users")
                                         .document("Service Provider")
@@ -148,6 +201,7 @@ class RegisterActivity : AppCompatActivity() {
                                 }
 
                                 navigateToLogin()
+
                             }?.addOnFailureListener {
                                 Toast.makeText(
                                     this,
@@ -165,16 +219,15 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        binding.loginTxt.setOnClickListener{
+        binding.loginTxt.setOnClickListener {
             navigateToLogin()
         }
     }
 
-    private fun navigateToLogin(){
+    private fun navigateToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
-
 
 
 }

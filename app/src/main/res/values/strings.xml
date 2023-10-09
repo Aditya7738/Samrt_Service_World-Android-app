@@ -29,6 +29,17 @@
         <item>Service Provider</item>
     </string-array>
 
+    <string-array name="services">
+        <item>Plumbing service</item>
+        <item>Car repair service</item>
+        <item>Electrician service</item>
+        <item>Mestri service</item>
+        <item>Wall painter service</item>
+        <item>Carpainter service</item>
+        <item>Welding service</item>
+        <item>Car wash service</item>
+    </string-array>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
@@ -79,4 +90,27 @@
     <string name="save_changes_btn">Save changes</string>
     <string name="upload_photo_btn">Upload photo</string>
     <string name="profile_image_description">Profile image</string>
+    <string name="user_name_label">User name</string>
+    <string name="service_role_place_holder">Service name</string>
+    <string name="user_location_place_holder">User location</string>
+    <string name="phone_number_place_holder">Phone number</string>
+    <string name="phone_number_label">Phone number:</string>
+    <string name="email_address_label">Email address:</string>
+    <string name="user_email_place_holder">User email</string>
+    <string name="location_label">Location:</string>
+    <string name="profile_image_contenDesc">Profile Image</string>
+    <string name="service_provider_name_place_holder">Service Provider Name</string>
+    <string name="serviceman_rating">4.4</string>
+    <string name="location_place_holder">Location</string>
+    <string name="availability">Available or not</string>
+    <string name="enter_new_name_label">Enter new name</string>
+    <string name="enter_new_location_label">Enter new location</string>
+    <string name="enter_new_phone_no_label">Enter new phone no.</string>
+    <string name="select_your_new_service_label">Select your new service</string>
+    <string name="select_your_services_place_holder">Select your services</string>
+    <string name="rating_star_desc">Rating Star</string>
+    <string name="enter_your_otp_place_holder">Enter your OTP</string>
+    <string name="send_otp_btn">Send OTP</string>
+    <string name="submit_btn_txt">Submit</string>
+    <string name="service_man_rating">4.4</string>
 </resources>

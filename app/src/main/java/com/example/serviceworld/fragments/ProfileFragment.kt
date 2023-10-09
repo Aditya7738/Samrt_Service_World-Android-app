@@ -31,9 +31,12 @@ class ProfileFragment() : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         db = FirebaseFirestore.getInstance()
         firebaseAuth = FirebaseAuth.getInstance()
+
+        binding.roleName.visibility = View.INVISIBLE
 
         val firebaseUser = firebaseAuth.currentUser
         var uid = ""
@@ -42,40 +45,67 @@ class ProfileFragment() : Fragment() {
         }
 
         Log.d("DOCUMENTPATH", documentPath)
-       // Log.d("DOCUMENTNAME", documentName)
 
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         Log.d("UID----------------", uid)
 
-        db.collection("users").document(documentPath).collection("profile_data")
-            .document(uid).get().addOnSuccessListener { document ->
-                if (document != null) {
-                    
-                    binding.emailId.text = document.getString("email")
-                    binding.location.text = document.getString("location")
-                    binding.phoneNo.text = document.getString("phone")
-                    binding.name.text = document.getString("name")
-                    Log.d("GETDATA", document.getString("name").toString())
+        if(documentPath == "Service Provider") {
+            binding.roleName.visibility = View.VISIBLE
+
+            db.collection("users").document(documentPath).collection("profile_data")
+                .document(uid).get().addOnSuccessListener { document ->
+                    if (document != null) {
+
+                        binding.emailId.text = document.getString("email")
+                        binding.location.text = document.getString("location")
+                        binding.phoneNo.text = document.getString("phone")
+                        binding.name.text = document.getString("name")
+                        binding.roleName.text = document.getString("serviceName")
+
+                        Log.d("GETDATA", document.getString("serviceName").toString())
+
+
+                    }
                 }
-            }
+        }else{
+            db.collection("users").document(documentPath).collection("profile_data")
+                .document(uid).get().addOnSuccessListener { document ->
+                    if (document != null) {
+
+                        binding.emailId.text = document.getString("email")
+                        binding.location.text = document.getString("location")
+                        binding.phoneNo.text = document.getString("phone")
+                        binding.name.text = document.getString("name")
+
+                        Log.d("GETDATA", document.getString("name").toString())
+                    }
+                }
+        }
+
+
         //binding.profileImage.setImageResource()
 
         binding.updateBtn.setOnClickListener {
 
-            val email = binding.emailId.text.toString()
             val location = binding.location.text.toString()
             val phoneNo = binding.phoneNo.text.toString()
             val name = binding.name.text.toString()
+            var roleName = binding.roleName.text.toString()
+
+            if(documentPath == "Service Provider"){
+                roleName = binding.roleName.text.toString()
+            }
 
             Log.d("DOCUMENTPATH2", documentPath)
 
             val intent = Intent(requireContext(), UpdateProfile::class.java)
-            intent.putExtra("email", email)
+            intent.putExtra("serviceName", roleName)
             intent.putExtra("location", location)
             intent.putExtra("phoneNo", phoneNo)
             intent.putExtra("name", name)
             intent.putExtra("accountType", documentPath)
+            Log.d("ROLENAME", roleName)
+
 
             startActivity(intent)
         }
