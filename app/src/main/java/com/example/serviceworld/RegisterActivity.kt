@@ -53,14 +53,12 @@ class RegisterActivity : AppCompatActivity() {
             selectedService = adapterView.getItemAtPosition(position).toString()
         }
 
+
         Log.d("REGISTER", selectedAccount)
-
-
-
-
 
         firebaseAuth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+
 
         binding.signupBtn.setOnClickListener {
             Log.d("AFTERCLICK", selectedAccount)
@@ -71,6 +69,10 @@ class RegisterActivity : AppCompatActivity() {
             val phone = binding.phonenoTxt.text.toString()
             val location = binding.locationTxt.text.toString()
 
+            if(phone != intent.getStringExtra("AuthPhoneNo")){
+                binding.phonenoTxt.error = "This is not your authorized phone number"
+                Toast.makeText(this, "Please enter the phone number that you authorized previously", Toast.LENGTH_LONG).show()
+            }
             if (selectedAccount.isEmpty()) {
                 binding.accountType.error = "Account type is not selected"
                 Toast.makeText(this, "You have not selected account type", Toast.LENGTH_LONG).show()

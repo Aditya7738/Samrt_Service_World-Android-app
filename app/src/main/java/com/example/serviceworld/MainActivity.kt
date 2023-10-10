@@ -12,7 +12,6 @@ import android.view.View
 import android.view.WindowManager
 
 import android.widget.LinearLayout
-import android.widget.TextView
 import com.example.serviceworld.databinding.ActivityMainBinding
 
 @Suppress("DEPRECATION")
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, OtpCheckActivity::class.java)
             startActivity(intent)
             finish()
         },3000)

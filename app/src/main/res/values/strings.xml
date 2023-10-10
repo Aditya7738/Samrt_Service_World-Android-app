@@ -7,7 +7,7 @@
     <string name="tab1">Customer</string>
     <string name="cpass">Confirm your password</string>
     <string name="location">Enter your location</string>
-    <string name="phone_number">Enter your phone number</string>
+    <string name="phone_number">Please enter your authorized phone number</string>
     <string name="email">Enter your email</string>
     <string name="name">Enter your name</string>
     <string name="password">Enter your password</string>
@@ -113,4 +113,5 @@
     <string name="send_otp_btn">Send OTP</string>
     <string name="submit_btn_txt">Submit</string>
     <string name="service_man_rating">4.4</string>
+    <string name="phoneNumber">Enter your phone number</string>
 </resources>
