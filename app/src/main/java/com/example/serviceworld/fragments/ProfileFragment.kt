@@ -26,6 +26,7 @@ class ProfileFragment() : Fragment() {
 
     //private var documentName: String = if (documentPath == "Customer") "Customer" else "Service Provider"
 
+    var userName: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,10 +57,12 @@ class ProfileFragment() : Fragment() {
                 .document(uid).get().addOnSuccessListener { document ->
                     if (document != null) {
 
+                        userName = document.getString("name")
+
                         binding.emailId.text = document.getString("email")
                         binding.location.text = document.getString("location")
                         binding.phoneNo.text = document.getString("phone")
-                        binding.name.text = document.getString("name")
+                        binding.name.text = userName
                         binding.roleName.text = document.getString("serviceName")
 
                         Log.d("GETDATA", document.getString("serviceName").toString())
@@ -72,10 +75,11 @@ class ProfileFragment() : Fragment() {
                 .document(uid).get().addOnSuccessListener { document ->
                     if (document != null) {
 
+                        userName = document.getString("name")
                         binding.emailId.text = document.getString("email")
                         binding.location.text = document.getString("location")
                         binding.phoneNo.text = document.getString("phone")
-                        binding.name.text = document.getString("name")
+                        binding.name.text = userName
 
                         Log.d("GETDATA", document.getString("name").toString())
                     }

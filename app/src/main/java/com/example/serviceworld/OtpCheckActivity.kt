@@ -1,9 +1,12 @@
 package com.example.serviceworld
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.example.serviceworld.databinding.ActivityOtpCheckBinding
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -32,6 +35,8 @@ class OtpCheckActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityOtpCheckBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        runtimePermission()
 
         firebaseAuth = FirebaseAuth.getInstance()
 
@@ -121,6 +126,15 @@ class OtpCheckActivity : AppCompatActivity() {
             }
 
         }
+
+    private fun runtimePermission(){
+        if(ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
+        {
+            val permissionStringArray= arrayOf(Manifest.permission.CALL_PHONE)
+            requestPermissions(permissionStringArray, 100)
+        }
+    }
 
 
     }

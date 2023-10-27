@@ -40,8 +40,6 @@ class LoginActivity : AppCompatActivity() {
             val pass = binding.lpassTxt.text.toString()
             val email = binding.lemailTxt.text.toString()
 
-
-
             if (email.isEmpty()) {
                 binding.lemailTxt.error = "Email field is empty"
                 Toast.makeText(this, "Email is empty", Toast.LENGTH_LONG).show()
@@ -66,11 +64,12 @@ class LoginActivity : AppCompatActivity() {
                         .document("Customer")
                         .collection("profile_data")
 
-
-                    collectionReference.whereEqualTo("email", email)
+                    Log.d("LOGINEMAIL", email)
+                    collectionReference
+                        .whereEqualTo("email", email)
                         .get()
                         .addOnCompleteListener { emailCheck ->
-                            if (emailCheck.isSuccessful) {
+                            if (emailCheck.isSuccessful && !emailCheck.result.isEmpty) {
                                 Log.d("CUSTOMER_success", "STEP1")
                                 correctAccountSelected = true
                                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
@@ -111,7 +110,7 @@ class LoginActivity : AppCompatActivity() {
                     collectionReference.whereEqualTo("email", email)
                         .get()
                         .addOnCompleteListener{ emailCheck ->
-                            if(emailCheck.isSuccessful){
+                            if(emailCheck.isSuccessful && !emailCheck.result.isEmpty){
                                 correctAccountSelected = true
                                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                                     if (it.isSuccessful) {

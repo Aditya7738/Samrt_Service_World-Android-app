@@ -114,4 +114,12 @@
     <string name="submit_btn_txt">Submit</string>
     <string name="service_man_rating">4.4</string>
     <string name="phoneNumber">Enter your phone number</string>
+    <string name="provider_image_desc">Service provider image</string>
+    <string name="provider_availability">Available</string>
+    <string name="provider_name_label">Name</string>
+    <string name="service_providers_name">Service provider\'s name</string>
+    <string name="call_service_provider_btn">Call service provider</string>
+    <string name="request_service_btn">Request service</string>
+    <string name="mark_as_favourite_btn">Mark as Favourite</string>
+    <string name="report_btn">Report service provider</string>
 </resources>

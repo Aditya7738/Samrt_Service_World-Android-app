@@ -1,6 +1,7 @@
 package com.example.serviceworld
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,10 +26,20 @@ class ServiceProviderRVAdapter(var context: Context, var list: ArrayList<Service
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val serviceProviders = list[position]
 
-        holder.serviceProvider.text = serviceProviders.name
+        val serviceProviderName = serviceProviders.name
+        val email = serviceProviders.email
+
+        holder.serviceProvider.text = serviceProviderName
         holder.serviceName.text = serviceProviders.serviceName
         holder.location.text = serviceProviders.location
         holder.availableOrNotTxt.text = serviceProviders.isAvailable
+
+        holder.itemView.setOnClickListener{
+            val intent = Intent(context, ServiceProviderDetails::class.java)
+            intent.putExtra("email", email)
+
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -41,6 +52,9 @@ class ServiceProviderRVAdapter(var context: Context, var list: ArrayList<Service
         val serviceName = itemview.findViewById<TextView>(R.id.service_name)
         val location = itemview.findViewById<TextView>(R.id.locTxt)
         val availableOrNotTxt = itemview.findViewById<TextView>(R.id.availableOrNotTxt)
+
+
+
     }
 
 }

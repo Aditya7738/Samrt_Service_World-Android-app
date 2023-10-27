@@ -1,6 +1,8 @@
 package com.example.serviceworld
 
+
 import android.content.Intent
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -25,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
         val linearLayout = findViewById<LinearLayout>(R.id.linearL1)
 
+
+
         val slideFromRight = Slide()
         slideFromRight.slideEdge = Gravity.END
         TransitionManager.beginDelayedTransition(linearLayout, slideFromRight)
@@ -42,4 +46,6 @@ class MainActivity : AppCompatActivity() {
             finish()
         },3000)
     }
+
+
 }
