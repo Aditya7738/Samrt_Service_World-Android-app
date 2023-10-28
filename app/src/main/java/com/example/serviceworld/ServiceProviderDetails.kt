@@ -70,16 +70,7 @@ class ServiceProviderDetails : AppCompatActivity() {
             .addOnFailureListener {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
             }
-//            .get()
-//            .addOnSuccessListener {
-//                if (document != null) {
-//                    binding.serviceProviderName.text = document.getString("name")
-//                    binding.location.text = document.getString("location")
-//                    binding.emailId.text = document.getString("email")
-//                    binding.phoneNo.text = document.getString("phone")
-//
-//                }
-//            }
+
 
         binding.callBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_CALL)
@@ -88,26 +79,32 @@ class ServiceProviderDetails : AppCompatActivity() {
         }
 
         binding.requestBtn.setOnClickListener {
+            val reqProviderDetails = mutableMapOf<String, String?>()
+            reqProviderDetails["name"] = providerName
+            reqProviderDetails["serviceName"] = serviceName
 
+            db.collection("users").document("Customer").collection("profile_data")
+                .document(uid).collection("requestedProviders")
+                .add(reqProviderDetails)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Request sent", Toast.LENGTH_LONG).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Not able to send request", Toast.LENGTH_LONG).show()
+                }
         }
 
         binding.favouriteBtn.setOnClickListener {
-            val favProviderNames = mutableMapOf<String, String?>()
-            favProviderNames["name"] = providerName
-            favProviderNames["serviceName"] = serviceName
-            favProviderNames["location"] = location
-            favProviderNames["isAvailable"] = availability
+            val favProviderDetails = mutableMapOf<String, String?>()
+            favProviderDetails["name"] = providerName
+            favProviderDetails["serviceName"] = serviceName
+            favProviderDetails["location"] = location
+            favProviderDetails["isAvailable"] = availability
 
-
-//            db.collection("users").document("Service Provider").collection("profile_data")
-//                .whereEqualTo("email", intent.getStringExtra("email"))
-//                .get().addOnCompleteListener{
-//
-//                }
 
             db.collection("users").document("Customer").collection("profile_data")
                 .document(uid).collection("favourites")
-                .add(favProviderNames)
+                .add(favProviderDetails)
                 .addOnSuccessListener {
                     Toast.makeText(this, "Provider added in favourite list", Toast.LENGTH_LONG).show()
                 }

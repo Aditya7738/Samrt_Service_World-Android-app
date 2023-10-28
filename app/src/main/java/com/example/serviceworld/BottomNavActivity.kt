@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.serviceworld.databinding.ActivityBottomNavBinding
 import com.example.serviceworld.fragments.FavouriteFragment
 import com.example.serviceworld.fragments.HomeFragment
-import com.example.serviceworld.fragments.NotificationFragment
+import com.example.serviceworld.fragments.RequestedServicesFragment
 import com.example.serviceworld.fragments.ProfileFragment
 
 class BottomNavActivity : AppCompatActivity() {
@@ -30,7 +30,7 @@ class BottomNavActivity : AppCompatActivity() {
 
         val homeFragment = HomeFragment(this)
         val favouriteFragment = FavouriteFragment(this)
-        val notificationFragment = NotificationFragment(this)
+        val requestedServicesFragment = RequestedServicesFragment(this)
         val profileFragment = ProfileFragment(selectedAccount)
         //val profileFragmentContainer = FragmentContainerView()
 
@@ -55,7 +55,7 @@ class BottomNavActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.home_icon -> replaceFragment(homeFragment)
                 R.id.fav_icon -> replaceFragment(favouriteFragment)
-                R.id.notify_icon -> replaceFragment(notificationFragment)
+                R.id.notify_icon -> replaceFragment(requestedServicesFragment)
                 R.id.profile_icon -> replaceFragment(profileFragment)
 
                 else -> {

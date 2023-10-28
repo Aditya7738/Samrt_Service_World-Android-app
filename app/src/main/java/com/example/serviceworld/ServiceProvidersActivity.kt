@@ -39,25 +39,6 @@ class ServiceProvidersActivity : AppCompatActivity() {
         binding.serviceProviderList.adapter = serviceProviderRVAdapter
 
         val docRef = db.collection("users").document("Service Provider").collection("profile_data")
-//            .get()
-//            .addOnSuccessListener { result ->
-//                //list.clear()
-//
-//
-//
-//                for (document in result) {
-//                    val serviceproviders = document.toObject(ServiceProviders::class.java)
-//                    Log.d("SERVICEPROVIDERS", serviceproviders.name.toString())
-//                    list.add(serviceproviders)
-//                }
-//
-//                serviceProviderRVAdapter.notifyDataSetChanged()
-//
-//
-//            }
-//            .addOnFailureListener {
-//                Toast.makeText(this, "Failed to fetch data", Toast.LENGTH_LONG).show()
-//            }
 
         docRef.whereEqualTo("serviceName", intent.getStringExtra("selectedService"))
             .addSnapshotListener(object: EventListener<QuerySnapshot>{

@@ -122,4 +122,6 @@
     <string name="request_service_btn">Request service</string>
     <string name="mark_as_favourite_btn">Mark as Favourite</string>
     <string name="report_btn">Report service provider</string>
+    <string name="bottomicon_requested">Requested</string>
+    <string name="request_status">Requested</string>
 </resources>
