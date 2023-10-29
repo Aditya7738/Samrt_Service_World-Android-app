@@ -1,4 +1,4 @@
-package com.example.serviceworld.fragments
+package com.example.serviceworld.customer_fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import com.example.serviceworld.BottomNavActivity
+import com.example.serviceworld.CustomerBottomNavActivity
 import com.example.serviceworld.R
 import com.example.serviceworld.ServiceProvidersActivity
 import com.example.serviceworld.adapters.GridViewAdapter
@@ -15,9 +15,9 @@ import com.example.serviceworld.databinding.FragmentHomeBinding
 import com.example.serviceworld.model.ServiceModel
 
 
-class HomeFragment(bottomNavActivity: BottomNavActivity) : Fragment(), AdapterView.OnItemClickListener {
+class HomeFragment(customerBottomNavActivity: CustomerBottomNavActivity) : Fragment(), AdapterView.OnItemClickListener {
 
-    var context = bottomNavActivity
+    var context = customerBottomNavActivity
 
     lateinit var binding: FragmentHomeBinding
 

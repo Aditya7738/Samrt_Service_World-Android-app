@@ -124,4 +124,5 @@
     <string name="report_btn">Report service provider</string>
     <string name="bottomicon_requested">Requested</string>
     <string name="request_status">Requested</string>
+    <string name="logout_option_menu">logout</string>
 </resources>

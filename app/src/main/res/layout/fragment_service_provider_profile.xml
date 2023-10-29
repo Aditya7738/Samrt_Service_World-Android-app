@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/serviceprovider_profile_fragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".serviceprovider_fragments.ServiceProviderProfileFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            >
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:cardElevation="@dimen/_8sdp"
+                android:layout_margin="@dimen/_10sdp"
+                >
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginBottom="@dimen/_30sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_90sdp"
+                        android:src="@drawable/blank_profile_circle"
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/image"
+                        android:contentDescription="@string/profile_image_contenDesc"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/name"
+                        android:text="@string/user_name_label"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_15ssp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/roleName"
+                        android:text="@string/service_role_place_holder"
+                        android:textStyle="normal"
+                        android:textSize="@dimen/_13ssp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        />
+
+                    <TableLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+
+                        >
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/location_label"
+                                android:textStyle="bold"
+                                android:textSize="@dimen/_12ssp"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_location_place_holder"
+                                android:id="@+id/location"
+                                android:textSize="@dimen/_12ssp"
+                                android:layout_marginStart="@dimen/_5sdp"
+
+
+                                />
+                        </TableRow>
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/email_address_label"
+                                android:textStyle="bold"
+                                android:textSize="@dimen/_12ssp"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_email_place_holder"
+                                android:id="@+id/email_id"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                />
+                        </TableRow>
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/phone_number_label"
+                                android:textStyle="bold"
+                                android:textSize="@dimen/_12ssp"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/phone_number_place_holder"
+                                android:id="@+id/phoneNo"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                />
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/update_profile"
+                android:id="@+id/updateBtn"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_gravity="center_horizontal"
+                android:elevation="@dimen/_8sdp"
+                />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+
+</FrameLayout>

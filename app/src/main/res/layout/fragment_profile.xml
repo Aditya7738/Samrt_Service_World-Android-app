@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/profile_fragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.ProfileFragment">
+    tools:context=".customer_fragments.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -58,17 +58,6 @@
                 android:textSize="@dimen/_15ssp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_10sdp"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/roleName"
-                android:text="@string/service_role_place_holder"
-                android:textStyle="normal"
-                android:textSize="@dimen/_13ssp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_5sdp"
                 />
 
             <TableLayout

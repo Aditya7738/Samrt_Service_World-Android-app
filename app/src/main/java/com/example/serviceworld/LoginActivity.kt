@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.laccountType.setAdapter(arrayAdapter)
 
-        binding.laccountType.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, l ->
+        binding.laccountType.onItemClickListener = AdapterView.OnItemClickListener { adapterView, _, position, _ ->
             selectedAccount = adapterView.getItemAtPosition(position).toString()
         }
 
@@ -76,8 +76,8 @@ class LoginActivity : AppCompatActivity() {
                                     if (it.isSuccessful) {
                                         Log.d("SELECTED", "STEP2")
                                         Toast.makeText(this, "Login successfully", Toast.LENGTH_LONG).show()
-                                        val intent = Intent(this, BottomNavActivity::class.java)
-                                        intent.putExtra("AccountType", selectedAccount)
+                                        val intent = Intent(this, CustomerBottomNavActivity::class.java)
+
                                         startActivity(intent)
 
                                     } else {
@@ -116,8 +116,8 @@ class LoginActivity : AppCompatActivity() {
                                     if (it.isSuccessful) {
                                         Log.d("SELECTED", "STEP2")
                                         Toast.makeText(this, "Login successfully", Toast.LENGTH_LONG).show()
-                                        val intent = Intent(this, BottomNavActivity::class.java)
-                                        intent.putExtra("AccountType", selectedAccount)
+                                        val intent = Intent(this, ServiceProviderBottomNavActivity::class.java)
+
                                         startActivity(intent)
 
                                     } else {
@@ -132,30 +132,6 @@ class LoginActivity : AppCompatActivity() {
                             }
                         }
                 }
-
-//               if(correctAccountSelected) {
-//                   Log.d("SELECTED", "STEP1")
-//                   firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
-//                       if (it.isSuccessful) {
-//                           Log.d("SELECTED", "STEP2")
-//                           Toast.makeText(this, "Login successfully", Toast.LENGTH_LONG).show()
-//                           val intent = Intent(this, BottomNavActivity::class.java)
-//                           intent.putExtra("AccountType", selectedAccount)
-//                           startActivity(intent)
-//
-//                       } else {
-//                           Log.d("SELECTED", "STEP2")
-//                           Toast.makeText(this, "Either email or password is wrong", Toast.LENGTH_LONG).show()
-//                       }
-//                   }
-//               }
-//                else{
-//                    Toast.makeText(this, "You have chosen wrong account", Toast.LENGTH_LONG).show()
-//                }
-
-
-
-
             }
         }
 
@@ -164,5 +140,15 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if(firebaseAuth.currentUser == null){
+            startActivity(Intent(this, LoginActivity::class.java))
+            //use return
+            //return
+        }
     }
 }

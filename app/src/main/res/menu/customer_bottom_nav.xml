@@ -15,8 +15,8 @@
 
     <item
         android:title="@string/bottomicon_requested"
-        android:icon="@drawable/bottom_nav_notification_selected_icon"
-        android:id="@+id/notify_icon"
+        android:icon="@drawable/bottom_nav_requested_selected_icon"
+        android:id="@+id/request_icon"
         />
 
     <item
