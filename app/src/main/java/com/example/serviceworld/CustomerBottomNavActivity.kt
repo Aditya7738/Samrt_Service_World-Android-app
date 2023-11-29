@@ -14,6 +14,7 @@ import com.example.serviceworld.customer_fragments.ProfileFragment
 import com.example.serviceworld.customer_fragments.RequestedServicesFragment
 import com.example.serviceworld.databinding.ActivityCustomerBottomNavBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 
 class CustomerBottomNavActivity : AppCompatActivity() {
 
@@ -40,7 +41,6 @@ class CustomerBottomNavActivity : AppCompatActivity() {
         //val profileFragmentContainer = FragmentContainerView()
 
         binding.bottomNav.itemIconTintList = null
-
 
         if (intent != null) {
             fromProfile = intent.getBooleanExtra("fromProfile", false)
@@ -81,6 +81,8 @@ class CustomerBottomNavActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.bottom_nav_activity_menu, menu)
         return true
@@ -90,8 +92,14 @@ class CustomerBottomNavActivity : AppCompatActivity() {
         val itemId = item.itemId
 
         return if (itemId == R.id.logout_icon) {
-            auth.signOut()
-            startActivity(Intent(this, LoginActivity::class.java))
+
+            FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener{task->
+                if(task.isSuccessful){
+                    auth.signOut()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                }
+            }
+
             true
         } else {
             super.onOptionsItemSelected(item)

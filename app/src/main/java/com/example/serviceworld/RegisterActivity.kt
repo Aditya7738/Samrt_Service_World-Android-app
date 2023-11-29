@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.example.serviceworld.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -69,10 +70,16 @@ class RegisterActivity : AppCompatActivity() {
             val phone = binding.phonenoTxt.text.toString()
             val location = binding.locationTxt.text.toString()
 
-            if(phone != intent.getStringExtra("AuthPhoneNo")){
-                binding.phonenoTxt.error = "This is not your authorized phone number"
-                Toast.makeText(this, "Please enter the phone number that you authorized previously", Toast.LENGTH_LONG).show()
+            if(!intent.getBooleanExtra("fromLogin", true)){
+                if(phone != intent.getStringExtra("AuthPhoneNo")){
+                    binding.phonenoTxt.error = "This is not your authorized phone number"
+                    Toast.makeText(this, "Please enter the phone number that you authorized previously", Toast.LENGTH_LONG).show()
+                }
             }
+
+
+
+
             if (selectedAccount.isEmpty()) {
                 binding.accountType.error = "Account type is not selected"
                 Toast.makeText(this, "You have not selected account type", Toast.LENGTH_LONG).show()
@@ -137,18 +144,47 @@ class RegisterActivity : AppCompatActivity() {
                 cpass.isNotEmpty() && phone.isNotEmpty() && location.isNotEmpty() && phone.length == 10 && pass == cpass
             ) {
 
-                val userData: HashMap<String, String>
+                var userData: HashMap<String, String> = hashMapOf()
+
+               // var accountAlreadyExist = true
+
+               // val collectionReference = db.collection("users")
 
                 if (selectedAccount == "Service Provider") {
-                    userData = hashMapOf(
-                        "name" to name,
-                        "email" to email,
-                        "phone" to phone,
-                        "location" to location,
-                        "serviceName" to selectedService,
-                        "isAvailable" to "Yes"
 
-                    )
+
+                    FirebaseMessaging.getInstance().token.addOnCompleteListener{ task->
+                        if(!task.isSuccessful){
+                            return@addOnCompleteListener
+                        }
+                        val token = task.result
+                        Log.d("TOKEN", token)
+
+                        userData = hashMapOf(
+                            "name" to name,
+                            "email" to email,
+                            "phone" to phone,
+                            "location" to location,
+                            "serviceName" to selectedService,
+                            "isAvailable" to "Yes",
+                            "fcmToken" to token
+
+                        )
+
+//                        collectionReference.document("Service Provider").collection("profile_data")
+//                            .whereEqualTo("email", email).get()
+//                            .addOnSuccessListener{
+//                                binding.emailTxt.error = "An account already exist with this email address As a service provider"
+//                                Toast.makeText(this, "This email have used already", Toast.LENGTH_LONG).show()
+//                            }
+//                            .addOnFailureListener{
+//                                accountAlreadyExist = false
+//                            }
+
+
+                    }
+
+
                 } else {
 
                     userData = hashMapOf(
@@ -157,65 +193,87 @@ class RegisterActivity : AppCompatActivity() {
                         "phone" to phone,
                         "location" to location
                     )
+
+//                    collectionReference.document("Customer").collection("profile_data")
+//                        .whereEqualTo("email", email).get()
+//                        .addOnSuccessListener{documents ->
+//                            for(document in documents){
+//                                Log.d("EMAIL", document.getString("email").toString())
+//                            }
+//                            binding.emailTxt.error = "An account already exist with this email address  As a customer"
+//                            Toast.makeText(this, "This email have used already", Toast.LENGTH_LONG).show()
+//                        }
+//                        .addOnFailureListener{
+//                            accountAlreadyExist = false
+//                        }
                 }
 
-                firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val firebaseUser = firebaseAuth.currentUser
-                        firebaseUser?.sendEmailVerification()
-                            ?.addOnSuccessListener {
-                                Toast.makeText(
-                                    this,
-                                    "Verification email have sent to you",
-                                    Toast.LENGTH_LONG
-                                ).show()
+               // if(!accountAlreadyExist) {
+                    firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            val firebaseUser = firebaseAuth.currentUser
+                            firebaseUser?.sendEmailVerification()
+                                ?.addOnSuccessListener {
+                                    Toast.makeText(
+                                        this,
+                                        "Verification email have sent to you",
+                                        Toast.LENGTH_LONG
+                                    ).show()
 
 
-                                val uid = firebaseUser.uid
+                                    val uid = firebaseUser.uid
 
-                                if (selectedAccount == "Customer") {
+                                    if (selectedAccount == "Customer") {
 
 
-                                    db.collection("users")
-                                        .document("Customer")
-                                        .collection("profile_data")
-                                        .document(uid)
-                                        .set(userData).addOnSuccessListener {
-                                            Toast.makeText(
-                                                this,
-                                                "Customer's data have stored successfully",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
-                                } else {
+                                        db.collection("users")
+                                            .document("Customer")
+                                            .collection("profile_data")
+                                            .document(uid)
+                                            .set(userData).addOnSuccessListener {
+                                                Toast.makeText(
+                                                    this,
+                                                    "Customer's data have stored successfully",
+                                                    Toast.LENGTH_LONG
+                                                ).show()
+                                            }
+                                    } else {
 
-                                    db.collection("users")
-                                        .document("Service Provider")
-                                        .collection("profile_data")
-                                        .document(uid)
-                                        .set(userData).addOnSuccessListener {
-                                            Toast.makeText(
-                                                this,
-                                                "Service provider's data have stored successfully",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
+                                        db.collection("users")
+                                            .document("Service Provider")
+                                            .collection("profile_data")
+                                            .document(uid)
+                                            .set(userData).addOnSuccessListener {
+                                                Toast.makeText(
+                                                    this,
+                                                    "Service provider's data have stored successfully",
+                                                    Toast.LENGTH_LONG
+                                                ).show()
+                                            }
+                                    }
+
+                                    navigateToLogin()
+
+                                }?.addOnFailureListener {
+                                    Toast.makeText(
+                                        this,
+                                        "Fail to send verification email",
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "",
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
 
-                                navigateToLogin()
-
-                            }?.addOnFailureListener {
-                                Toast.makeText(
-                                    this,
-                                    "Fail to send verification email",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                    } else {
-                        Toast.makeText(this, "Registration is not successful", Toast.LENGTH_LONG)
-                            .show()
+                            binding.emailTxt.error = "An account already exist with this email address"
+                            Toast.makeText(this, "Registration is not successful", Toast.LENGTH_LONG).show()
+                        }
                     }
-                }
+              //  }
 
 
             }

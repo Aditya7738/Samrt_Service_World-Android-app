@@ -125,4 +125,16 @@
     <string name="bottomicon_requested">Requested</string>
     <string name="request_status">Requested</string>
     <string name="logout_option_menu">logout</string>
+
+    <string name="serverkey">AAAAyi1Rk20:APA91bHMPxTtNBIuG_Da0jFdZXpNzbSD1PpwzkWbPdC7njikW8gTmhC14m3D27jmv_0Rlcj3lNC34QZUWaxoeCWTGD1joWWZ1z2oyTK5_ubYExnQo1HALVrl8OS4c_LsEwYRWMUltOwy</string>
+    <string name="notification_title">Service request</string>
+    <string name="customer_name">Customer name</string>
+    <string name="customer_location">Location</string>
+    <string name="notificationList_customer_name">CustomerName</string>
+    <string name="notificationList_location">location</string>
+    <string name="notificationList_request_status">Request status</string>
+    <string name="reject_txt">Reject</string>
+    <string name="accept_txt">Accept</string>
+    <string name="accepted_status">Accepted</string>
+    <string name="delete_icon">delete_icon</string>
 </resources>

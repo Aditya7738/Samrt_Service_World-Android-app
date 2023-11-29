@@ -35,7 +35,6 @@ class ServiceProvidersActivity : AppCompatActivity() {
 
         val serviceProviderRVAdapter = ServiceProviderRVAdapter(this, list)
 
-
         binding.serviceProviderList.adapter = serviceProviderRVAdapter
 
         val docRef = db.collection("users").document("Service Provider").collection("profile_data")

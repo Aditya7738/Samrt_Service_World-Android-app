@@ -3,9 +3,11 @@ package com.example.serviceworld
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import com.example.serviceworld.databinding.ActivityOtpCheckBinding
 import com.google.firebase.FirebaseException
@@ -31,6 +33,7 @@ class OtpCheckActivity : AppCompatActivity() {
 
     lateinit var storeVerificationId: String
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOtpCheckBinding.inflate(layoutInflater)
@@ -127,11 +130,12 @@ class OtpCheckActivity : AppCompatActivity() {
 
         }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun runtimePermission(){
         if(ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
         {
-            val permissionStringArray= arrayOf(Manifest.permission.CALL_PHONE)
+            val permissionStringArray= arrayOf(Manifest.permission.CALL_PHONE, Manifest.permission.POST_NOTIFICATIONS)
             requestPermissions(permissionStringArray, 100)
         }
     }

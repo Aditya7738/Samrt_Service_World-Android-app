@@ -36,7 +36,7 @@
             android:layout_marginTop="@dimen/_2sdp"
             android:textStyle="bold"
             android:textColor="@color/orange"
-            android:id="@+id/availableOrNotTxt"/>
+            android:id="@+id/requestStatus"/>
 
 
     </LinearLayout>

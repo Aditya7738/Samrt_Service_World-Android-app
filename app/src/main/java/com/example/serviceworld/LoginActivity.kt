@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.example.serviceworld.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginActivity : AppCompatActivity() {
 
@@ -118,6 +119,43 @@ class LoginActivity : AppCompatActivity() {
                                         Toast.makeText(this, "Login successfully", Toast.LENGTH_LONG).show()
                                         val intent = Intent(this, ServiceProviderBottomNavActivity::class.java)
 
+                                        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                                            if(task.isSuccessful) {
+                                                val token = task.result
+                                                Log.d("TOKEN", token)
+
+                                                val firebaseUser = firebaseAuth.currentUser
+                                                var uid = ""
+                                                if (firebaseUser != null){
+                                                    uid = firebaseUser.uid
+                                                }
+
+                                                collectionReference.whereEqualTo("fcmToken", token)
+                                                    .get().addOnSuccessListener{documents ->
+                                                        //if document is empty means user is trying to login into new device
+                                                        if(documents.isEmpty){
+                                                            collectionReference.document(uid).update("fcmToken", token)
+                                                                .addOnSuccessListener{
+                                                                    Toast.makeText(this, "Token for new device is updated successfully", Toast.LENGTH_LONG).show()
+                                                            }
+                                                                .addOnFailureListener{
+                                                                    Toast.makeText(this, "Don't able to update new token", Toast.LENGTH_LONG).show()
+                                                                }
+                                                        }else{
+                                                            collectionReference.document(uid).update("fcmToken", token)
+                                                                .addOnSuccessListener{
+                                                                    Toast.makeText(this, "New token is updated successfully", Toast.LENGTH_LONG).show()
+                                                                }
+                                                                .addOnFailureListener{
+                                                                    Toast.makeText(this, "Don't able to update new token", Toast.LENGTH_LONG).show()
+                                                                }
+                                                        }
+                                                }
+                                            }else{
+                                                Toast.makeText(this, "Don't able to generate token", Toast.LENGTH_LONG).show()
+                                            }
+                                        }
+
                                         startActivity(intent)
 
                                     } else {
@@ -137,10 +175,15 @@ class LoginActivity : AppCompatActivity() {
 
         binding.registerTxt.setOnClickListener{
             val intent = Intent(this, RegisterActivity::class.java)
+            intent.putExtra("fromLogin", true)
             startActivity(intent)
         }
 
     }
+//    private fun getFCMToken(){
+//        var token= ""
+//
+//    }
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {

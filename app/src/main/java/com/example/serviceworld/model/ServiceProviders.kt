@@ -22,5 +22,6 @@ data class ServiceProviders(
     var location: String? = null,
     var isAvailable: String? = "Available",
     var phone: String? = null,
-    var email: String? = null
+    var email: String? = null,
+    var fcmToken: String? = null
 )

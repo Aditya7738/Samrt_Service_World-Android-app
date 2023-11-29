@@ -1,6 +1,7 @@
 package com.example.serviceworld
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,13 @@ class RequestedServiceAdapter(var context: Context, var list: ArrayList<Requeste
 
         holder.serviceProvider.text = requestedServices.name
         holder.serviceName.text = requestedServices.serviceName
+        holder.requestStatus.text = requestedServices.requestStatus
+
+        when(requestedServices.requestStatus){
+            "Accepted" -> holder.requestStatus.setTextColor(Color.parseColor("#4CAF50"))
+            "Rejected" -> holder.requestStatus.setTextColor(Color.parseColor("#F44336"))
+            else -> holder.requestStatus.setTextColor(Color.parseColor("#FF9800"))
+        }
 
     }
 
@@ -36,5 +44,6 @@ class RequestedServiceAdapter(var context: Context, var list: ArrayList<Requeste
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val serviceProvider = itemView.findViewById<TextView>(R.id.requested_providerName)
         val serviceName = itemView.findViewById<TextView>(R.id.requested_service_name)
+        val requestStatus = itemView.findViewById<TextView>(R.id.requestStatus)
     }
 }

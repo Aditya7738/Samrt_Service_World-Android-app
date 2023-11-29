@@ -1,6 +1,7 @@
 package com.example.serviceworld
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
 
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -54,52 +56,73 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val collectionReference = db
-            .collection("users").document("Customer").collection("profile_data")
+        val collectionReference = db.collection("users").document("Customer").collection("profile_data")
 
-        Handler(Looper.getMainLooper()).postDelayed({
+        //add firebaseUser != null that mean user is logged in
+//        if(intent.extras != null){
+//            val userId = intent.extras!!.getString("userId")
+//
+//            if (userId != null) {
+//                collectionReference.document(userId).get().addOnCompleteListener{task ->
+//                    if (task.isSuccessful){
+//                        val result = task.result
+//
+//                        val intent =  Intent(this, ServiceProviderBottomNavActivity::class.java)
+//                        intent.putExtra("customer_name", result.getString("name"))
+//                        intent.putExtra("customer_location", result.getString("location"))
+//                        startActivity(intent)
+//                    }
+//                }
+//            }
+//        }else {
+            Handler(Looper.getMainLooper()).postDelayed({
 
 
+                if (firebaseUser != null) {
+                    Log.d("FIREBASEUSER", firebaseUser.uid)
 
-            if (firebaseUser != null) {
-                Log.d("FIREBASEUSER", firebaseUser.uid)
+                    collectionReference.get().addOnSuccessListener { documents ->
 
-                collectionReference.get().addOnSuccessListener { documents ->
+                        //var idArray:Array<String> = Array(documents.size()){""}
 
-                    //var idArray:Array<String> = Array(documents.size()){""}
+                        val idArrayList = mutableListOf<String>()
 
-                    val idArrayList = mutableListOf<String>()
+                        for (document in documents) {
+                            idArrayList.add(document.id)
+                        }
 
-                    for (document in documents) {
-                        idArrayList.add(document.id)
+                        for (id in idArrayList) {
+                            Log.d("IDS", id)
+                        }
+
+                        if (firebaseUser.uid in idArrayList) {
+                            Log.d("FIREBASEUSER_UID", firebaseUser.uid)
+                            startActivity(Intent(this, CustomerBottomNavActivity::class.java))
+                        } else {
+                            Log.d("FIREBASEUSER_UID", firebaseUser.uid)
+                            startActivity(
+                                Intent(
+                                    this,
+                                    ServiceProviderBottomNavActivity::class.java
+                                )
+                            )
+                        }
                     }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Not able to fetch ids", Toast.LENGTH_LONG).show()
+                        }
 
-                    for(id in idArrayList){
-                        Log.d("IDS", id)
-                    }
 
-                    if(firebaseUser.uid in idArrayList){
-                        Log.d("FIREBASEUSER_UID", firebaseUser.uid)
-                        startActivity(Intent(this, CustomerBottomNavActivity::class.java))
-                    }else{
-                        Log.d("FIREBASEUSER_UID", firebaseUser.uid)
-                        startActivity(Intent(this, ServiceProviderBottomNavActivity::class.java))
-                    }
+                } else {
+                    Log.d("FIREBASEUSER_UID", firebaseUser?.uid.toString())
+
+                    startActivity(Intent(this, OtpCheckActivity::class.java))
+
                 }
-                    .addOnFailureListener {
-                        Toast.makeText(this, "Not able to fetch ids", Toast.LENGTH_LONG).show()
-                    }
-
-
-            } else {
-                Log.d("FIREBASEUSER_UID", firebaseUser?.uid.toString())
-
-                startActivity(Intent(this, OtpCheckActivity::class.java))
-
-            }
-            //startActivity(intent)
-            finish()
-        }, 3000)
+                //startActivity(intent)
+                finish()
+            }, 3000)
+        //}
     }
 
 
