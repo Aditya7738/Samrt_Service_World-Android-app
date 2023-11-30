@@ -137,4 +137,6 @@
     <string name="accept_txt">Accept</string>
     <string name="accepted_status">Accepted</string>
     <string name="delete_icon">delete_icon</string>
+    <string name="service_name_label">Service name</string>
+    <string name="service_name_place_holder">service_name</string>
 </resources>

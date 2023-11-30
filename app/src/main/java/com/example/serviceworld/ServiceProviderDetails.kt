@@ -47,7 +47,7 @@ class ServiceProviderDetails : AppCompatActivity() {
         var phoneNo = ""
         var serviceName = ""
         var availability = ""
-        var token = ""
+        //var token = ""
 
         val collectionReference =
             db.collection("users").document("Service Provider").collection("profile_data")
@@ -64,16 +64,17 @@ class ServiceProviderDetails : AppCompatActivity() {
                     phoneNo = data["phone"].toString()
                     serviceName = data["serviceName"].toString()
                     availability = data["isAvailable"].toString()
-                    token = data["fcmToken"].toString()
+                  //  token = data["fcmToken"].toString()
 
-                    Log.d("insideTOKEN", token)
+                   // Log.d("insideTOKEN", token)
                 }
 
-                Log.d("outsideTOKEN", token)
+               // Log.d("outsideTOKEN", token)
                 binding.serviceProviderName.text = providerName
                 binding.location.text = location
                 binding.emailId.text = email
                 binding.phoneNo.text = phoneNo
+                binding.providedServiceName.text = serviceName
             }
             .addOnFailureListener {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
@@ -109,7 +110,7 @@ class ServiceProviderDetails : AppCompatActivity() {
                     customerDocumentReference.collection("requestedProviders").document(documentID).get().addOnSuccessListener{document ->
                         if(document != null) {
                             if(document.getString("requestStatus").toString() == "Rejected"){
-                                addDataAndSendRequest(customerDocumentReference, reqProviderDetails,token)
+                                addDataAndSendRequest(customerDocumentReference, reqProviderDetails)
                             }else{
                                 Toast.makeText(this, "You already have send request to this service man", Toast.LENGTH_LONG)
                                     .show()
@@ -120,7 +121,7 @@ class ServiceProviderDetails : AppCompatActivity() {
 
                 }
                 .addOnFailureListener {
-                    addDataAndSendRequest(customerDocumentReference, reqProviderDetails,token)
+                    addDataAndSendRequest(customerDocumentReference, reqProviderDetails)
                 }
 
 
@@ -165,7 +166,7 @@ class ServiceProviderDetails : AppCompatActivity() {
         favProviderDetails["isAvailable"] = availability
 
 
-        customerDocumentReference.collection("favourites")
+        db.collection("users").document("Customer").collection("profile_data").document(uid).collection("favourites")
             .add(favProviderDetails)
             .addOnSuccessListener {
                 Toast.makeText(this, "Provider added in favourite list", Toast.LENGTH_LONG).show()
@@ -177,9 +178,7 @@ class ServiceProviderDetails : AppCompatActivity() {
 
     }
 
-    binding.reportBtn.setOnClickListener{
 
-    }
 
 
 }
